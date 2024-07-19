@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criticazo</title>
+  {% load static %}
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+  <link rel="icon" type="image/png" href="{% static 'img/criticazo.png' %}">
+  <style>
+    #results {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    #results img {
+      width: 200px;
+      height: 200px;
+      max-width: 300px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body class="inicio">
+<header>
+  <nav class="navbar navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+      <img class="logo" src="{% static 'img/criticazo.png' %}" />
+      <a class="navbar-brand">Criticazo</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+        aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+        aria-labelledby="offcanvasDarkNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Criticazo</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="../index/paginainicio.html">Inicio</a>
+            </li>
+            {% if user_role in "Critico" %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'restaurant-list' %}">Mi foro</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'paginalogin' %}">Iniciar Sesión</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'suscripcion' %}">Suscripcion</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav><br>
+  <br>
+  <br>
+</header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">¿Quiénes somos?</h5>
+          <p class="card-text">Criticazo es una plataforma que te ofrece una experiencia culinaria, podrás ver reseñas
+            detalladas de críticos profesionales.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">¡Explora con nosotros!</h5>
+          <p class="card-text">Críticos de todas las categorías están aquí para dar su opinión detallada de los diversos
+            restaurantes de la zona.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<h6 style="text-align: center;" class="subtitulo">Pon tu reseña en los restaurantes que has visitado</h6>
+<div>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col">
+        <h3>"La Cabrera"</h3>
+        <a href="{% url 'paginarestaurant' %}">
+          <img class="img" src="{% static 'img/RestaurantLoCabrera.jpg' %}" height="300px" width="150px" /><br>
+        </a>
+        <label>Calle Alonso de Córdova 4263 Vitacura.</label>
+      </div>
+
+      <div class="col">
+        <h3>"Zanzíbar"</h3>
+        <a href="{% url 'paginarestaurant1' %}">
+          <img class="img" src="{% static 'img/RestaurantZanzibar.jpg' %}" height="300px" width="150px" /><br>
+        </a>
+        <label>Monseñor Escriva de Balaguer 6400, Vitacura</label>
+      </div>
+
+      <div class="col">
+        <h3>"Capogrossi"</h3>
+        <a href="{% url 'paginarestaurant2' %}">
+          <img class="img" src="{% static 'img/RestaurantCapogrossi.jpg' %}" height="300px" width="150px" /><br>
+        </a>
+        <label>Alonso de Cordova 4225 Vitacura.</label>
+      </div>
+    </div>
+  </div><br>
+
+  <div class="container text-center">
+    <div class="row">
+      <div class="col">
+        <h3>"Borago "</h3>
+        <a href="{% url 'paginarestaurant3' %}">
+          <img class="img" src="{% static 'img/RestaurantBorago.jpg' %}" height="220px" width="150px" /><br>
+        </a>
+        <label>Av. San José María Escrivá de Balaguer 5970, Vitacura.</label>
+      </div>
+      <div class="col">
+        <h3>"Ambrosia Bistro"</h3>
+        <a href="{% url 'paginarestaurant4' %}">
+          <img class="img" src="{% static 'img/RestaurantAmbrosiaBistro.jpg' %}" height="250px" width="150px" /><br>
+        </a>
+        <label>Nueva de Lyon 99, Providencia.</label>
+      </div>
+      <div class="col">
+        <h3>"Divertimento Chileno"</h3>
+        <a href="{% url 'paginarestaurant5' %}">
+          <img class="img" src="{% static 'img/RestaurantDivertimentoChileno.jpg' %}" height="250px" width="150px" /><br>
+        </a>
+        <label>Av. El Cerro 722, Providencia.</label>
+      </div>
+    </div>
+  </div><br>
+
+  <hr>
+  <h1>Comidas Saludables</h1>
+  <div id="results"></div>
+
+  <hr>
+
+  <br>
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="contact-info">
+          <h3>Contacto</h3>
+          <p>Correo: criticazo@gmail.com</p>
+          <p>Teléfono: 979696653</p>
+        </div>
+        <div class="social-media">
+          <h3>Redes Sociales</h3>
+          <ul>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      function fetchRestaurants() {
+        $.ajax({
+          url: 'http://localhost:8000/api/restaurants/',
+          method: 'GET',
+          success: function(data) {
+            $('#results').empty();
+            data.forEach(function(restaurant) {
+              var restaurantHTML = `
+                <div class="food-item">
+                  <h3>${restaurant.name}</h3>
+                  <img src="${restaurant.image_url}" alt="${restaurant.name}">
+                  <p>${restaurant.location}</p>
+                  <p>${restaurant.description}</p>
+                </div>
+              `;
+              $('#results').append(restaurantHTML);
+            });
+          },
+          error: function(xhr, status, error) {
+            console.error('Error fetching restaurants:', error);
+            $('#results').text('Failed to load restaurants.');
+          }
+        });
+      }
+
+      fetchRestaurants();
+    });
+  </script>
+</body>
+</html>

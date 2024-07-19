@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Dueño--- Criticazo</title>
+    {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" type="image/png" href="{% static 'img/criticazo.png' %}">
+  </head>
+  <link rel="stylesheet" href="{% static 'css/estilo.css' %}" />
+<body class="fondoGenerico2">
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Criticazo</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Criticazo</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'restaurant-list' %}">Mi foro</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'paginalogin' %}">Iniciar Sesión</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+    </nav><br>
+
+    <br>
+    <div class="tablaperfilchef">
+      <div class="row">
+        <div class="col">
+          <h1>Perfil</h1>
+          <h1><b>Juan Soto</b></h1>
+            <h2>Profesión: Dueño de Restaurante</h2>
+            <p><b>Correo: jusoto@gmail.com</b></p>
+            <form id="formGeneralChef" method="post" enctype="multipart/form-data" action="{% url 'restaurant-list' %}">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label for="IngresoNRestaurant" class="form-label">Nombre Restaurant: </label>
+                  <input type="text" class="form-control" id="IngresoNRestaurant" name="IngresoNRestaurant">
+              </div>
+              <div class="form-group">
+                  <label for="IngresarDireccion" class="form-label">Dirección: </label>
+                  <input type="text" class="form-control" id="IngresarDireccion" name="IngresarDireccion">
+              </div>
+              <div class="form-group">
+                  <label for="Sugerencia" class="form-label">Descripción: </label>
+                  <textarea class="form-control" id="Sugerencia" name="Sugerencia" rows="6" required></textarea>
+              </div>
+              <div class="form-group">
+                  <label for="fileToUpload" class="form-label">Ingresar foto: </label>
+                  <input class="form-control" type="file" id="fileToUpload" name="fileToUpload">
+              </div>
+              <button type="submit" class="btn btn-primary">Enviar</button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>                            
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script> 
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+      <script src="../js/forochef.js"></script>
+      <script>
+        document.getElementById('formGeneralChef').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            
+            fetch('../api/restaurants/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken
+                },
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Restaurant added successfully!');
+                    window.location.reload();
+                } else {
+                    return response.json().then(data => {
+                        throw new Error(data);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to add restaurant. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>
